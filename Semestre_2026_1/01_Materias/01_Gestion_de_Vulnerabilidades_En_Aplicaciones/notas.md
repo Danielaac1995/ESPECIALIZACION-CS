@@ -103,6 +103,7 @@ MANTENER LA MINIMA CANTIDAD DE PUERTOS EXPUESTO REDUCE LA PRBABLILIDAD DE ATAQUE
 **Pendientes**
 Estudiar Kali Linux
 Instalar Kali Linux
+http://10.2.13.185/dvwa/vulnerabilities/xss_r/
 DVWA
 admin
 password
@@ -113,3 +114,14 @@ Reto1
 puntos3
 insertar una imagen, en la salida del usuario, la imagen debe decir
 se logro con un payload que es el siguietne
+
+Reto3
+Identificar la url
+del login de DVWA
+http// dvwa.seginfo.co
+
+Reto4
+Robar la cookie de sesion de Javier Dúran
+(usuario:admin) via phishing
+Pista: A Durán le gustan los viajes
+PDT: mostrar la sesión
