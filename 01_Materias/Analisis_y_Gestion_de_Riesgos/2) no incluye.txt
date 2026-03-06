@@ -1,0 +1,7 @@
+2) no incluye 
+
+El análisis de riesgos no contempla entornos, infraestructuras o componentes tecnológicos que se encuentren fuera del control organizacional directo de la plataforma digital, tales como redes públicas de telecomunicaciones, proveedores de conectividad o infraestructuras externas sin gestión de seguridad bajo el gobierno de la organización.
+
+Asimismo, se excluyen dispositivos personales de los clientes y cualquier configuración o vulnerabilidad propia del entorno del usuario final, dado que estos no forman parte del perímetro tecnológico administrado por la entidad. Tampoco se incluyen procesos corporativos, sistemas internos o plataformas que no participen directa o indirectamente en la operación, procesamiento o soporte de la aplicación bancaria digital.
+
+No se incluyen dentro del alcance los activos tecnológicos que no se encuentren bajo administración directa de la organización; sin embargo, los riesgos derivados de su interacción con la plataforma digital sí son considerados como fuentes de amenaza externa

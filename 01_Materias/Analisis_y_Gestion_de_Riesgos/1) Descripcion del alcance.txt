@@ -1,0 +1,5 @@
+El análisis de riesgos se delimita a la plataforma tecnológica que soporta la aplicación bancaria digital, considerada un entorno crítico para el procesamiento de información financiera y datos personales sensibles. El alcance comprende los componentes tecnológicos, lógicos y de soporte que intervienen en la exposición del canal digital, la autenticación de usuarios y el procesamiento transaccional.
+
+Se evalúan los riesgos asociados a amenazas internas y externas que puedan materializarse sobre la superficie de ataque del canal digital, incluyendo accesos no autorizados, fraude electrónico, explotación de vulnerabilidades, fallos en mecanismos criptográficos e indisponibilidad de servicios críticos.
+
+Conforme a ISO/IEC 27005, el alcance permite identificar activos críticos, amenazas relevantes del sector financiero y vulnerabilidades explotables, priorizando impactos en confidencialidad, integridad, disponibilidad, cumplimiento regulatorio, reputación y continuidad del negocio.
