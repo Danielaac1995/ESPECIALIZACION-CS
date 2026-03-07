@@ -173,3 +173,9 @@ v3.1 tenía Scope (S) + CIA una vez. v4.0 **elimina Scope** y divide en dos sist
 ---
 
 *Notas actualizadas el 06/03/2026*
+clase de hoy 07/03/2026
+reto realizar una inyeccion sql basada en \\
+
+descargar burpsuite para identificar lo que viaja en las cabeceras
+
+RETO 14: ejecutar una inyeccion sql tipo blind que sea visible a nivel de burpsuite, pero que no sa visible con el mismo payload desde el navegadir
