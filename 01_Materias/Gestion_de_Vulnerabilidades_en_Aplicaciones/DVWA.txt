@@ -1,0 +1,33 @@
+sudo service apache2 start
+sudo service mariadb start
+
+sudo su {buena se pone roja}
+
+su danielaguirre {kali}
+
+docker start dvwa  
+----------------------------------
+http://127.0.1.1:8080/login.php
+-----------------------------------
+
+
+sudo docker run -d \
+  --name DVWA \
+  -p 127.0.1.1:80:80 \
+  ghcr.io/digininja/dvwa:latest
+
+
+  sudo docker ps   
+  [127.0.1.1/DVWA]
+
+  # Iniciar
+sudo docker start dvwa
+
+# Detener
+sudo docker stop dvwa
+
+# Ver logs si algo falla
+sudo docker logs dvwa
+
+# Eliminar contenedor
+sudo docker rm -f dvwa

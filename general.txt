@@ -1,0 +1,147 @@
+este es mi historial, luego de ejecutar.
+history | tail -300
+
+te soy a mostrar donde estoy parado desd Kali Linux, y me vas a dar en orden los comandos para volver a activar mi pagina dvwa
+estoy parado en ┌──(kali㉿kali)-[~/daniel]
+y lo comandos que antes use fueron los siguientes:
+
+
+  1  mkdir daniel
+    2  pwd
+    3  mkdir
+    4  mkdir daniel
+    5  cd daniel
+    6  git init
+    7  cd ..
+    8  cd var
+    9  cd /var
+   10  cd /www
+   11  ls
+   12  cd www/html
+   13  sudo adduser danielaguirre
+   14  git clone ^[[200~https://github.com/digininja/DVWA.git~
+   15  git clone https://github.com/digininja/DVWA.git
+   16  sudo git clone https://github.com/digininja/DVWA.git
+   17  sudo adduser danielaguirre
+   18  su - danielaguirre
+   19  ls
+   20  cd ..
+   21  dir
+   22  cd var
+   23  cd www
+   24  cd html
+   25  sudo git clone
+   26  sudo git clone https://github.com/digininja/DVWA.git
+   27  dir
+   28  cd DVWA
+   29  dir
+   30  sudo chmod /R 777 DVWA
+   31  sudo chmod -R 777 DVWA
+   32  cd  ..
+   33  sudo chmod -R 777 DVWA
+   34  ls
+   35  cd DVWA
+   36  cd config
+   37  ls
+   38  cp config.inc.php.dist config.inc.php
+   39  sudo mousepad config.inc.php
+   40  sudo systemctl start mysql
+   41  sudo systemctl status mysql
+   42  clear
+   43  sudo su
+   44  dir
+   45  cd daniel
+   46  dir
+   47  ls
+   48  cd ..
+   49  dir
+   50  cd ..
+   51  dir
+   52  sudo su
+   53  cd ..
+   54  sudo s
+   55  cd ../..
+   56  sudo su
+   57  ^[[200~sudo service apache2 start
+   58  sudo service apache2 start
+   59  sudo service mysql start\n
+   60  sudo service apache2 status\n
+   61  >
+   62  sudo service mysql start
+   63  sudo service mysql status
+   64  active
+   65  ls /var/www/html/dvwa
+   66  find / -name "dvwa" -type d 2>/dev/null\nfind / -name "login.php" 2>/dev/null | grep -i dvwa
+   67  sudo service mysql status
+   68  curl -I http://localhost/dvwa/
+   69  ls /var/www/html/
+   70  cd dvwa
+   71  cd DVWA
+   72  cd dvwa
+   73  cd DVWA
+   74  LS
+   75  ls
+   76  cd daniel
+   77  ls
+   78  dir
+   79  HISTTIMEFORMAT="%d/%m/%Y %H:%M  " history | grep -E "27/02|28/02"
+   80  cat -n ~/.bash_history
+   81  ls
+   82  dir
+   83  HISTTIMEFORMAT="%d/%m/%Y %H:%M  " history | grep -E "27/02|28/02"
+mkdir daniel
+pwd
+mkdir
+mkdir daniel
+cd daniel
+git init
+cd ..
+cd var
+cd /var
+cd /www
+ls
+cd www/html
+sudo adduser danielaguirre
+git clone https://github.com/digininja/DVWA.git~
+git clone https://github.com/digininja/DVWA.git
+sudo git clone https://github.com/digininja/DVWA.git
+sudo adduser danielaguirre
+su - danielaguirre
+ls
+cd ..
+dir
+cd var
+cd www
+cd html
+sudo git clone
+sudo git clone https://github.com/digininja/DVWA.git
+dir
+cd DVWA
+dir
+sudo chmod /R 777 DVWA
+sudo chmod -R 777 DVWA
+cd  ..
+sudo chmod -R 777 DVWA
+ls
+cd DVWA
+cd config
+ls
+cp config.inc.php.dist config.inc.php
+sudo mousepad config.inc.php
+sudo systemctl start mysql
+sudo systemctl status mysql
+clear
+sudo su
+dir
+cd daniel
+dir
+ls
+cd ..
+dir
+cd ..
+dir
+sudo su
+cd ..
+sudo s
+cd ../..
+sudo su
